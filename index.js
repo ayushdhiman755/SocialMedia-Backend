@@ -37,7 +37,7 @@ app.use(morgan("common")) // middleware to display request details on backend co
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./public/images")
+        cb(null, "https://mysociserver.onrender.com/images")
     },
     filename: (req, file, cb) => {
         cb(null, req.body.name)
