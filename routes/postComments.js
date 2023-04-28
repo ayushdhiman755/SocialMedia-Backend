@@ -7,15 +7,18 @@ const Post = require("../models/Post")
 router.post("/comment", async (req, res) => {
     console.log(req.body)
     const newComment = new Comments(req.body)
+    console.log("calling python ")
     const pyPr = spawn('python', ["C:/socal_media/api/JuModel/Predict.py", newComment.commentText])
     try {
         pyPr.stdout.on("data", async data => {
+            console.log("python says ",newComment.commentText," is ",all_Classes[parseInt(data.toString())])
             var bully = parseInt(data.toString())
             if (bully === 0) {
                 try {
                     const savedComment = await newComment.save();
                     const post = await Post.findById(req.body.postId)
                     await post.updateOne({ $push: { comments: savedComment.id } });
+                    console.log(err, "comment save successfully")
                     res.status(200).json("comment updates successfully");
                 }
                 catch (err) {
@@ -24,6 +27,7 @@ router.post("/comment", async (req, res) => {
                 }
             }
             else {
+                console.log("bully ",all_Classes[bully])
                 res.status(500).json({ "cyberBully": all_Classes[bully] })
             }
             // res.status(200).json(all_Classes[])
