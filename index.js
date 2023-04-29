@@ -37,7 +37,7 @@ app.use(morgan("common")) // middleware to display request details on backend co
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "https://mysociserver.onrender.com/images")
+        cb(null, "/images")
     },
     filename: (req, file, cb) => {
         cb(null, req.body.name)
@@ -49,9 +49,11 @@ const upload = multer({ storage: storage })
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
     try {
+        console.log("file uploaded successful")
         return res.status(200).json("file uploades successfully")
     } catch (error) {
         console.log(error)
+        res.status(500).json(error)
     }
 })
 
