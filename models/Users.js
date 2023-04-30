@@ -20,11 +20,11 @@ const UsersSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: ""
+        default: "https://ucarecdn.com/65c1476b-7939-4802-a0be-67bf017a57f5/"
     },
     coverPicture: {
         type: String,
-        default: ""
+        default: "https://ucarecdn.com/1a43be85-bc10-40f1-9a5a-4a73ffbb3bb8/"
     },
     followers: {
         type: Array,
