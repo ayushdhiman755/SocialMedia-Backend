@@ -46,6 +46,13 @@ router.get("/getchat/:userId1/:userId2", async (req, res) => {
         if (conversation) {
             res.status(200).json(conversation)
         }
+        else {
+            const newConversation = new Conversation({
+                members: [req.params.userId1, req.params.userId2]
+            })
+            const savedConversation = await newConversation.save()
+            res.status(200).json(savedConversation)
+        }
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
