@@ -8,7 +8,7 @@ router.post("/comment", async (req, res) => {
     console.log(req.body)
     const newComment = new Comments(req.body)
     console.log("calling python ")
-    const pyPr = spawn('python', ["/images/JuModel/Predict.py", newComment.commentText])
+    const pyPr = spawn('python', ["https://mysociserver.onrender.com/images/JuModel/Predict.py", newComment.commentText])
     try {
         pyPr.stdout.on("data", async data => {
             console.log("python says ",newComment.commentText," is ",all_Classes[parseInt(data.toString())])
