@@ -5,8 +5,8 @@ from nltk.stem.porter import PorterStemmer
 import sys
 import os
 # CVPath=os.path.join("")
-cv = joblib.load("C:/socal_media/api/JuModel/CountVectorizer")
-classifier=joblib.load("C:/socal_media/api/JuModel/classifier")
+cv = joblib.load("C:/COPY_FOT_DEPLOYMENT/socal_media/api/public/images/JuModel/CountVectorizer")
+classifier=joblib.load("C:/COPY_FOT_DEPLOYMENT/socal_media/api/public/images/JuModel/classifier")
 all_stopwords = stopwords.words('english')
 all_stopwords.remove('not')
 all_Classes=['not_cyberbullying', 'gender', 'religion', 'other_cyberbullying', 'age', 'ethnicity']
@@ -27,6 +27,6 @@ def predict(comment):
     return (y_pred_comment[0])
 
 if __name__=="__main__":
-    print(predict(sys.argv[1]))
-    # print(predict("hello huys"))
+    # print(predict(sys.argv[1]))
+    print(predict("racist"))
     # print(os.getcwd())

@@ -1,6 +1,5 @@
 const { spawn } = require("child_process")
 const all_Classes = ['not_cyberbullying', 'gender', 'religion', 'other_cyberbullying', 'age', 'ethnicity']
-
 const router = require("express").Router();
 const Comments = require("../models/Comments");
 const Post = require("../models/Post")
@@ -8,21 +7,25 @@ router.post("/comment", async (req, res) => {
     console.log(req.body)
     const newComment = new Comments(req.body)
     console.log("calling python ")
-    const pyPr = spawn('python', ["https://mysociserver.onrender.com/images/JuModel/Predict.py", newComment.commentText])
+    let bully=0
+    const pyPr = spawn('python', ["./Predict.py", newComment.commentText])
     try {
         pyPr.stdout.on("data", async data => {
             console.log("python says ",newComment.commentText," is ",all_Classes[parseInt(data.toString())])
             var bully = parseInt(data.toString())
-            if (bully === 0) {
+            console.log("bully index ",bully)
+            if (bully===0) {
+            // if () {
                 try {
                     const savedComment = await newComment.save();
                     const post = await Post.findById(req.body.postId)
                     await post.updateOne({ $push: { comments: savedComment.id } });
-                    console.log(err, "comment save successfully")
+                    console.log("comment save successfully")
                     res.status(200).json("comment updates successfully");
                 }
                 catch (err) {
                     console.log(err, "comment save error")
+                    console.log(err)
                     res.status(500).json(err)
                 }
             }
