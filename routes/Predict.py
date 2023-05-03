@@ -27,6 +27,4 @@ def predict(comment):
     return (y_pred_comment[0])
 
 if __name__=="__main__":
-    # print(predict(sys.argv[1]))
-    print(predict("racist"))
-    # print(os.getcwd())
+    print(predict(sys.argv[1]))
