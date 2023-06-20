@@ -8,9 +8,12 @@ const all_Classes = ['not_cyberbullying', 'gender', 'religion', 'other_cyberbull
 
 // posting comments using python server for deployment
 router.post("/comment", async (req, res) => {
-    let comment = new Comment(req.body)
-    const bullyIndex = parseInt(await axios.get(`https://flaskserver-p3v8.onrender.com/comment?comment=${comment.commentText}`))
-    console.log(comment, " is ", all_Classes[bullyIndex]);
+    let comment = new Comments(req.body)
+    const bully = await axios.get(`https://flaskserver-p3v8.onrender.com/comment?comment=${comment.commentText}`)
+    const bullyIndex=bully.data
+    // console.log("Response ",bully.data);
+
+    // console.log(comment.commentText, " is ",typeof(bullyIndex));
     if (bullyIndex === 0) {
         try {
             const savedComment = await comment.save();
@@ -24,7 +27,7 @@ router.post("/comment", async (req, res) => {
         }
     }
     else{
-        res.status(500).json({ "cyberBully": all_Classes[bully] })   
+        res.status(500).json({ "cyberBully": all_Classes[bullyIndex] })   
     }
 })
 
