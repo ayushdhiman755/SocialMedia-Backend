@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URL, (err) => {
         console.log(err.message)
     }
     else {
-        console.log("database connected ;)")
+        console.log("database connected ")
         console.log("path", path.dirname(""))
     }
 })
